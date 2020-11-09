@@ -1,0 +1,1 @@
+..\bin\debug\netcoreapp3.1\SnesDisassembler.exe "Star Fox - Version 1.2 (US).smc" ff9c > "Star Fox - Version 1.2 (US).txt"

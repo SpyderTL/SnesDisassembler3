@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SnesDisassembler": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../../../Examples/Metal Combat - Falcon's Revenge (U).smc\" 8c3b"
+    }
+  }
+}
