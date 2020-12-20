@@ -79,6 +79,7 @@ namespace SnesDisassembler
 					case InstructionReader.InstructionType.PointerTable:
 					case InstructionReader.InstructionType.TablePointer:
 					case InstructionReader.InstructionType.JumpPointer:
+					case InstructionReader.InstructionType.JumpPointerTable:
 						Console.Write("(");
 						break;
 
@@ -123,6 +124,11 @@ namespace SnesDisassembler
 						break;
 
 					case InstructionReader.InstructionType.JumpPointer:
+						Console.Write(")");
+						break;
+
+					case InstructionReader.InstructionType.JumpPointerTable:
+						Index(opCode);
 						Console.Write(")");
 						break;
 

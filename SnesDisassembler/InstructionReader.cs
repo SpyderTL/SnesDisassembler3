@@ -91,7 +91,8 @@ namespace SnesDisassembler
 			JumpRelative,
 			BankCopy,
 			JumpPointer,
-			JumpPointer24
+			JumpPointer24,
+			JumpPointerTable
 		}
 
 		internal struct OpCode
@@ -261,7 +262,7 @@ namespace SnesDisassembler
 			new OpCode { Name = "ADC", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.Y, Description = "" },
 			new OpCode { Name = "PLY", Length = 1, LengthA16 = 1, LengthX16 = 1, Type = InstructionType.None, Description = "" },
 			new OpCode { Name = "TDC", Length = 1, LengthA16 = 1, LengthX16 = 1, Type = InstructionType.None, Description = "" },
-			new OpCode { Name = "JMP", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.PointerTable, Index = IndexRegister.X, Description = "" },
+			new OpCode { Name = "JMP", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.JumpPointerTable, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "ADC", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "ROR", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "ADC", Length = 4, LengthA16 = 4, LengthX16 = 4, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
@@ -340,7 +341,7 @@ namespace SnesDisassembler
 			new OpCode { Name = "LDY", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "LDA", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "LDX", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.Y, Description = "" },
-			new OpCode { Name = "LDA", Length = 4, LengthA16 = 4, LengthX16 = 4, Type = InstructionType.Variable, Description = "" },
+			new OpCode { Name = "LDA", Length = 4, LengthA16 = 4, LengthX16 = 4, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
 
 			// 0xC0
 			new OpCode { Name = "CPY", Length = 2, LengthA16 = 2, LengthX16 = 3, Type = InstructionType.Immediate, Description = "" },
@@ -413,7 +414,7 @@ namespace SnesDisassembler
 			new OpCode { Name = "SBC", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.Y, Description = "" },
 			new OpCode { Name = "PLX", Length = 1, LengthA16 = 1, LengthX16 = 1, Type = InstructionType.None, Description = "" },
 			new OpCode { Name = "XCE", Length = 1, LengthA16 = 1, LengthX16 = 1, Type = InstructionType.None, Description = "" },
-			new OpCode { Name = "JSR", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.PointerTable, Index = IndexRegister.X, Description = "" },
+			new OpCode { Name = "JSR", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.JumpPointerTable, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "SBC", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "INC", Length = 3, LengthA16 = 3, LengthX16 = 3, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },
 			new OpCode { Name = "SBC", Length = 4, LengthA16 = 4, LengthX16 = 4, Type = InstructionType.Table, Index = IndexRegister.X, Description = "" },

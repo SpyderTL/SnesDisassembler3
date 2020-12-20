@@ -62,19 +62,25 @@ namespace SnesDisassembler
 					Indent();
 					Indent();
 					Indent();
-					Console.WriteLine("return this." + instruction.Parameter.ToString("X6") + "();");
+					Console.WriteLine("return this.L" + instruction.Parameter.ToString("X6") + "();");
 					break;
 
 				case InstructionReader.InstructionType.Call:
-					Console.Write("this." + instruction.Parameter.ToString("X6") + "();");
+					Console.Write("this.L" + instruction.Parameter.ToString("X6") + "();");
 					break;
 
 				case InstructionReader.InstructionType.Jump:
 				case InstructionReader.InstructionType.JumpRelative:
-					Console.Write("return this." + instruction.Parameter.ToString("X6") + "();");
+					Console.Write("return this.L" + instruction.Parameter.ToString("X6") + "();");
 					break;
 
 				case InstructionReader.InstructionType.JumpPointer:
+					Console.Write("return [");
+					Parameter(instruction, opCode);
+					Console.Write("]();");
+					break;
+
+				case InstructionReader.InstructionType.JumpPointerTable:
 					Console.Write("return [");
 					Parameter(instruction, opCode);
 					Console.Write("]();");
@@ -218,6 +224,10 @@ namespace SnesDisassembler
 					Console.Write("X = Y;");
 					break;
 
+				case "TCD":
+					Console.Write("D = A;");
+					break;
+
 				case "SEC":
 					Console.Write("C = 1;");
 					break;
@@ -299,7 +309,7 @@ namespace SnesDisassembler
 					break;
 
 				case "XBA":
-					Console.Write("A = (A >> 4) | (A << 4);");
+					Console.Write("A = (A >> 8) | (A << 8);");
 					break;
 
 				case "XCE":
@@ -341,9 +351,9 @@ namespace SnesDisassembler
 					break;
 
 				case "SBC":
-					Console.Write("A -= ");
+					Console.Write("A -= [");
 					Parameter(instruction, opCode);
-					Console.Write(" - !C;");
+					Console.Write("] - !C;");
 					break;
 
 				case "INC":
@@ -381,19 +391,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - [");
+					Console.Write("C = 1; temp = A - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - [");
+					Console.Write("C = 1; temp = X - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - [");
+					Console.Write("C = 1; temp = Y - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
@@ -501,19 +511,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - ");
+					Console.Write("C = 1; temp = A - ");
 					Parameter(instruction, opCode);
 					Console.Write(";");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - ");
+					Console.Write("C = 1; temp = X - ");
 					Parameter(instruction, opCode);
 					Console.Write(";");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - ");
+					Console.Write("C = 1; temp = Y - ");
 					Parameter(instruction, opCode);
 					Console.Write(";");
 					break;
@@ -603,19 +613,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - [");
+					Console.Write("C = 1; temp = A - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - [");
+					Console.Write("C = 1; temp = X - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - [");
+					Console.Write("C = 1; temp = Y - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
@@ -729,19 +739,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - [");
+					Console.Write("C = 1; temp = A - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - [");
+					Console.Write("C = 1; temp = X - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - [");
+					Console.Write("C = 1; temp = Y - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
@@ -837,19 +847,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - [");
+					Console.Write("C = 1; temp = A - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - [");
+					Console.Write("C = 1; temp = X - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - [");
+					Console.Write("C = 1; temp = Y - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
@@ -951,19 +961,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - [");
+					Console.Write("C = 1; temp = A - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - [");
+					Console.Write("C = 1; temp = X - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - [");
+					Console.Write("C = 1; temp = Y - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
@@ -1059,19 +1069,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - [");
+					Console.Write("C = 1; temp = A - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - [");
+					Console.Write("C = 1; temp = X - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - [");
+					Console.Write("C = 1; temp = Y - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
@@ -1167,19 +1177,19 @@ namespace SnesDisassembler
 					break;
 
 				case "CMP":
-					Console.Write("temp = A - [");
+					Console.Write("C = 1; temp = A - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPX":
-					Console.Write("temp = X - [");
+					Console.Write("C = 1; temp = X - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
 
 				case "CPY":
-					Console.Write("temp = Y - [");
+					Console.Write("C = 1; temp = Y - [");
 					Parameter(instruction, opCode);
 					Console.Write("];");
 					break;
@@ -1260,6 +1270,14 @@ namespace SnesDisassembler
 					Console.WriteLine("if (C == 0)");
 					break;
 
+				case "BVS":
+					Console.WriteLine("if (V == 1)");
+					break;
+
+				case "BVC":
+					Console.WriteLine("if (V == 0)");
+					break;
+
 				case "BPL":
 					Console.WriteLine("if (N == 0)");
 					break;
@@ -1277,7 +1295,7 @@ namespace SnesDisassembler
 		private static void Function(ProgramConsole.Function function)
 		{
 			Indent();
-			Console.WriteLine("public void " + function.Address.ToString("X6") + "()");
+			Console.WriteLine("public void L" + function.Address.ToString("X6") + "()");
 			Indent();
 			Console.WriteLine("{");
 		}
@@ -1318,6 +1336,7 @@ namespace SnesDisassembler
 					case InstructionReader.InstructionType.PointerTable:
 					case InstructionReader.InstructionType.TablePointer:
 					case InstructionReader.InstructionType.JumpPointer:
+					case InstructionReader.InstructionType.JumpPointerTable:
 						Console.Write("(");
 						break;
 
@@ -1325,6 +1344,15 @@ namespace SnesDisassembler
 					case InstructionReader.InstructionType.TablePointer24:
 					case InstructionReader.InstructionType.JumpPointer24:
 						Console.Write("[");
+						break;
+
+					case InstructionReader.InstructionType.Jump:
+					case InstructionReader.InstructionType.JumpRelative:
+						Console.Write("L");
+						break;
+
+					case InstructionReader.InstructionType.Call:
+						Console.Write("L");
 						break;
 				}
 
@@ -1360,6 +1388,11 @@ namespace SnesDisassembler
 						break;
 
 					case InstructionReader.InstructionType.JumpPointer:
+						Console.Write(")");
+						break;
+
+					case InstructionReader.InstructionType.JumpPointerTable:
+						Index(opCode);
 						Console.Write(")");
 						break;
 

@@ -55,6 +55,7 @@ namespace SnesDisassembler
 						break;
 
 					case InstructionReader.InstructionType.JumpPointer:
+					case InstructionReader.InstructionType.JumpPointerTable:
 					case InstructionReader.InstructionType.JumpPointer24:
 						instructions.Add(new Instruction { Address = InstructionReader.Address, Length = InstructionReader.Length, Code = InstructionReader.Code, Parameter = InstructionReader.Parameter });
 						reading = false;

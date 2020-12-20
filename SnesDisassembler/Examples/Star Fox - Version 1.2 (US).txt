@@ -459,7 +459,7 @@ public class SnesRom
 		A &= 0x0007;
 		A <<= 1;
 		X = A;
-		A = [0x008C15];
+		A = [0x008C15 + X];
 		temp = A - [0x194F];
 		
 		if (Z == 0)
@@ -503,7 +503,7 @@ public class SnesRom
 		A &= 0x0007;
 		A <<= 1;
 		X = A;
-		A = [0x008C15];
+		A = [0x008C15 + X];
 		temp = A - [0x194F];
 		
 		if (Z == 0)
@@ -611,9 +611,6 @@ public class SnesRom
 	{
 		X = [0x1FE2];
 		return [(0xDC4B + X)]();
-		[(0xDC) + Y] = A;
-		A = [0xADDC];
-		return [[0xDC7F]]();	//24-Bit Address
 	}
 
 	public void 02DCC3()
@@ -753,32 +750,11 @@ public class SnesRom
 	public void 02DD6F()
 	{
 		P &= ~0x20;
-		A = [0x02E0C2];
+		A = [0x02E0C2 + X];
 		A &= 0x00FF;
 		Y = X;
 		X = A;
 		return [(0xDD7D + X)]();
-		A = [0xDD + Y];
-		Stack.Push(X);
-		temp = A - [0xDDFA + X];
-		temp = A & [0x3EDE]; [0x3EDE] &= ~A;
-		[0xDE60 + X]--;
-		A += [[0xDE] + Y] + C;
-		[0xA5DE] = X;
-		[0xDEBB + X]--;
-		temp = A - [[0xDE]];
-		temp = A - [0xDEDEDE];
-		A -= 0xFCDE - !C;
-		[0xDF04 + X]--;
-		A |= [(0xDF)];
-		temp = A - [0xE1EFE1 + X];
-		A = [[0xDD]];
-		A -= [0xE1 + X] - !C;
-		X = Y;
-		A = [0x02E0C3];
-		[0x16AB] = A;
-		X = A;
-		return this.02DD6F();
 	}
 
 	public void 02E082()
@@ -799,9 +775,9 @@ public class SnesRom
 
 	public void 02E094()
 	{
-		A = [0x700EF2];
+		A = [0x700EF2 + X];
 		[0x416B + Y] = A;
-		A = [0x7010B2];
+		A = [0x7010B2 + X];
 		[0x416A + Y] = A;
 		Y--;
 		Y--;
@@ -818,9 +794,9 @@ public class SnesRom
 
 	public void 02E0AB()
 	{
-		A = [0x700EF2];
+		A = [0x700EF2 + X];
 		[0x43AF + Y] = A;
-		A = [0x7010B2];
+		A = [0x7010B2 + X];
 		[0x43AE + Y] = A;
 		Y--;
 		Y--;
@@ -929,7 +905,7 @@ public class SnesRom
 
 	public void 02E2BB()
 	{
-		A = [0x701000];
+		A = [0x701000 + X];
 		[0x7F0000 + X] = A;
 		X++;
 		X++;
@@ -1561,11 +1537,6 @@ public class SnesRom
 		this.02E8E1();
 	}
 
-	public void 02E69B()
-	{
-		A -= [(0xE8 + X)] - !C;
-	}
-
 	public void 02E69D()
 	{
 		this.02D956();
@@ -1579,42 +1550,6 @@ public class SnesRom
 		Stack.Push(X);
 		X = [0x1892];
 		return [(0xE6AD + X)]();
-		temp = A - [0xE6];
-		temp = A - [(0xE6)];
-		A -= [(0xE6 + X)] - !C;
-		
-		if (Z == 1)
-			return this.02E69B();
-
-		A -= [0xE70EE6 + X] - !C;
-		A |= [0x2CE7 + X];
-		A -= [[0x38]] - !C;
-		A -= [[0x44]] - !C;
-		A -= [[0x50]] - !C;
-		A -= [[0xFA]] - !C;
-		P &= ~0x20;
-		A = 0x48A0;
-		[0x28 + X] = A;
-		P |= 0x20;
-		A = 0x01;
-		return this.02E75C();
-	}
-
-	public void 02E75C()
-	{
-		temp = A - [0x1FBB];
-		
-		if (Z == 0)
-			return this.02E766();
-
-		A = 0x1E;
-		[0x1F0F] = A;
-	}
-
-	public void 02E766()
-	{
-		P = Stack.Pop();
-		return;
 	}
 
 	public void 02E768()
@@ -1814,7 +1749,7 @@ public class SnesRom
 		if (Z == 1)
 			return this.02E8E0();
 
-		A = [0x001FBD];
+		A = [0x001FBD + X];
 		A &= 0x00FF;
 		temp = A - 0x0065;
 		
@@ -2463,7 +2398,7 @@ public class SnesRom
 			return this.02EDB9();
 
 		
-		if (F.BVS)
+		if (V == 1)
 			return this.02EDBD();
 
 		return this.02EDBB();
@@ -2472,7 +2407,7 @@ public class SnesRom
 	public void 02EDB9()
 	{
 		
-		if (F.BVC)
+		if (V == 0)
 			return this.02EDBD();
 
 	}
@@ -2564,11 +2499,11 @@ public class SnesRom
 		if (Z == 1)
 			return this.02EE73();
 
-		A = [0x02EBAF];
+		A = [0x02EBAF + X];
 		[0x700062] = A;
 		A = 0x0096;
 		[0x70002C] = A;
-		A = [0x02EBA9];
+		A = [0x02EBA9 + X];
 		[0x7000A6] = A;
 		P |= 0x20;
 		A = 0x01;
@@ -2579,11 +2514,11 @@ public class SnesRom
 
 	public void 02EE73()
 	{
-		A = [0x02EBAF];
+		A = [0x02EBAF + X];
 		[0x700062] = A;
 		A = 0x0089;
 		[0x70002C] = A;
-		A = [0x02EBA9];
+		A = [0x02EBA9 + X];
 		[0x7000A6] = A;
 		P |= 0x20;
 		A = 0x01;
@@ -2592,7 +2527,7 @@ public class SnesRom
 		P &= ~0x20;
 		X = Stack.Pop();
 		Stack.Push(X);
-		A = [0x02EBB5];
+		A = [0x02EBB5 + X];
 		[0x700062] = A;
 		A = 0x0097;
 		[0x70002C] = A;
@@ -2608,9 +2543,9 @@ public class SnesRom
 	{
 		X = Stack.Pop();
 		Stack.Push(X);
-		A = [0x02EBBB];
+		A = [0x02EBBB + X];
 		[0x700026] = A;
-		A = [0x02EBBC];
+		A = [0x02EBBC + X];
 		[0x700028] = A;
 		A = 0x00;
 		[0x700027] = A;
@@ -2746,7 +2681,7 @@ public class SnesRom
 
 	public void 02EF6B()
 	{
-		A = [0x02EF8D];
+		A = [0x02EF8D + X];
 		temp = A - [0x14C5];
 		
 		if (Z == 1)
@@ -2773,7 +2708,7 @@ public class SnesRom
 			return this.02EF84();
 
 		
-		if (F.BVC)
+		if (V == 0)
 			return this.02EF87();
 
 		return this.02EF86();
@@ -2782,7 +2717,7 @@ public class SnesRom
 	public void 02EF84()
 	{
 		
-		if (F.BVS)
+		if (V == 1)
 			return this.02EF87();
 
 	}
@@ -3380,9 +3315,9 @@ public class SnesRom
 
 	public void 02F479()
 	{
-		A = [0x038AAA];
+		A = [0x038AAA + X];
 		[0x2122] = A;
-		A = [0x038AAB];
+		A = [0x038AAB + X];
 		[0x2122] = A;
 		X++;
 		X++;
@@ -3671,7 +3606,7 @@ public class SnesRom
 	{
 		X = [0x1EE9];
 		Y = [0x1EED];
-		A = [0x02F7FF];
+		A = [0x02F7FF + X];
 		[0x1809 + Y] = A;
 		[0x1EE9]--;
 		[0x1EE9]--;
@@ -3718,7 +3653,7 @@ public class SnesRom
 		A = [0x1789 + Y];
 		A &= 0x7C00;
 		[0x14C5] = A;
-		A = [0x02F83F];
+		A = [0x02F83F + X];
 		A &= 0x7C00;
 		temp = A - [0x14C5];
 		
@@ -3748,7 +3683,7 @@ public class SnesRom
 		A = [0x1789 + Y];
 		A &= 0x03E0;
 		[0x14C5] = A;
-		A = [0x02F83F];
+		A = [0x02F83F + X];
 		A &= 0x03E0;
 		temp = A - [0x14C5];
 		
@@ -3778,7 +3713,7 @@ public class SnesRom
 		A = [0x1789 + Y];
 		A &= 0x001F;
 		[0x14C5] = A;
-		A = [0x02F83F];
+		A = [0x02F83F + X];
 		A &= 0x001F;
 		temp = A - [0x14C5];
 		
@@ -4794,14 +4729,14 @@ public class SnesRom
 		Stack.Push(A);
 		A = 0x0000;
 		[0x700090] = A;
-		A = [0x030003];
+		A = [0x030003 + X];
 		A &= 0x00FF;
 		[0x700064] = A;
-		A = [0x030001];
+		A = [0x030001 + X];
 		[0x700062] = A;
-		A = [0x030004];
+		A = [0x030004 + X];
 		[0x188A] = A;
-		A = [0x030006];
+		A = [0x030006 + X];
 		[0x188C] = A;
 		P |= 0x20;
 		this.03AB2B();
@@ -4882,7 +4817,7 @@ public class SnesRom
 	{
 		P |= 0x20;
 		I = 1;
-		A = [0x03AEE9];
+		A = [0x03AEE9 + X];
 		[0x1F47] = A;
 		X++;
 		[0x1F63] = X;
@@ -5073,12 +5008,12 @@ public class SnesRom
 	{
 		P &= ~0x20;
 		X = [0x1F63];
-		A = [0x03AEE9];
+		A = [0x03AEE9 + X];
 		[0x1F3F] = A;
-		A = [0x03AEEC];
+		A = [0x03AEEC + X];
 		[0x1F41] = A;
 		P |= 0x20;
-		A = [0x03AEEB];
+		A = [0x03AEEB + X];
 		[0xFC] = A;
 		X++;
 		X++;
@@ -5662,12 +5597,12 @@ public class SnesRom
 		if (Z == 0)
 			return this.03B441();
 
-		A = [0x7E1CE8];
+		A = [0x7E1CE8 + X];
 		
 		if (Z == 0)
 			return this.03B41C();
 
-		A = [0x7E1CE9];
+		A = [0x7E1CE9 + X];
 		
 		if (Z == 1)
 			return this.03B441();
@@ -5738,7 +5673,7 @@ public class SnesRom
 
 	public void 03B459()
 	{
-		A = [0x7E1CE8];
+		A = [0x7E1CE8 + X];
 		A &= 0x00FF;
 		
 		if (Z == 1)
@@ -5749,7 +5684,7 @@ public class SnesRom
 
 	public void 03B465()
 	{
-		A = [0x7E1CE9];
+		A = [0x7E1CE9 + X];
 		A &= 0x00FF;
 		[0x1F3D] = A;
 		Y = [0x1236];
@@ -5758,7 +5693,7 @@ public class SnesRom
 		P &= ~0x20;
 		A &= 0x00FF;
 		X = A;
-		A = [0x03B539];
+		A = [0x03B539 + X];
 		A &= 0x00FF;
 		A |= [0x1F3D];
 		[0x1F3D] = A;
@@ -5837,7 +5772,7 @@ public class SnesRom
 	public void 03B4CD()
 	{
 		P &= ~0x20;
-		A = [0x7E1CE9];
+		A = [0x7E1CE9 + X];
 		A &= 0x00FF;
 		[0x1F3D] = A;
 		[0x1F66] = X;
@@ -6937,7 +6872,7 @@ public class SnesRom
 		P &= ~0x20;
 		A <<= 1;
 		X = A;
-		A = [0x03D408];
+		A = [0x03D408 + X];
 		[0x32] = A;
 		[0x38] = A;
 		this.03C67F();
@@ -7442,7 +7377,7 @@ public class SnesRom
 		A <<= 1;
 		X = A;
 		P |= 0x20;
-		A = [0x03D391];
+		A = [0x03D391 + X];
 		temp = A & 0x80;
 		
 		if (Z == 0)
@@ -7476,7 +7411,7 @@ public class SnesRom
 		A = [0x16D9];
 		A <<= 1;
 		X = A;
-		A = [0x03D391];
+		A = [0x03D391 + X];
 		temp = A & 0x0080;
 		
 		if (Z == 0)
@@ -7564,7 +7499,7 @@ public class SnesRom
 		Y = X;
 		P |= 0x20;
 		X--;
-		A = [0x03D68C];
+		A = [0x03D68C + X];
 		X = Y;
 		P &= ~0x20;
 	}
@@ -7811,7 +7746,7 @@ public class SnesRom
 		if (Z == 1)
 			return this.03C49C();
 
-		A = [0x03D69D];
+		A = [0x03D69D + X];
 		
 		if (N == 0)
 			return this.03C4CC();
@@ -7826,7 +7761,7 @@ public class SnesRom
 		[0x02] = 0;
 		A <<= 1;
 		X = A;
-		A = [0x03D42A];
+		A = [0x03D42A + X];
 		[0x38] = A;
 		temp = A - [0x32];
 		
@@ -7885,7 +7820,7 @@ public class SnesRom
 		[0x36] = A;
 		P &= ~0x20;
 		Y = [0x30];
-		A = [0x03D69D];
+		A = [0x03D69D + X];
 		[0x0002 + Y] = A;
 		A = [0x08];
 		[0x0000 + Y] = A;
@@ -8110,17 +8045,17 @@ public class SnesRom
 		A <<= 1;
 		X = A;
 		P |= 0x20;
-		A = [0x03D3C6];
+		A = [0x03D3C6 + X];
 		A++;
 		[0x2126] = A;
 		C = 0;
 		A += 0x1D + C;
 		[0x2127] = A;
-		A = [0x03D3C7];
+		A = [0x03D3C7 + X];
 		A >>= 1;
 		[0x02] = A;
 		[0x7E4610] = A;
-		A = [0x03D3C7];
+		A = [0x03D3C7 + X];
 		C = 1;
 		A -= 0x02 - !C;
 		[0x7E4612] = A;
@@ -8164,7 +8099,7 @@ public class SnesRom
 		A &= 0x00FF;
 		A <<= 1;
 		X = A;
-		A = [0x03C716];
+		A = [0x03C716 + X];
 		[0x2118] = A;
 		A++;
 		[0x2118] = A;
@@ -8448,7 +8383,7 @@ public class SnesRom
 		X = A;
 		A = [0x1E];
 		[0x22] = A;
-		A = [0x03D3C6];
+		A = [0x03D3C6 + X];
 		A &= 0x00FF;
 		C = 1;
 		A -= 0x0070 - !C;
@@ -8468,7 +8403,7 @@ public class SnesRom
 		[0x1E] = A;
 		A = [0x20];
 		[0x22] = A;
-		A = [0x03D3C7];
+		A = [0x03D3C7 + X];
 		A &= 0x00FF;
 		C = 1;
 		A -= 0x0058 - !C;
@@ -8602,7 +8537,7 @@ public class SnesRom
 		A = [0x16D9];
 		A <<= 1;
 		X = A;
-		A = [0x03D391];
+		A = [0x03D391 + X];
 		[0x700098] = A;
 		A = 0x000F;
 		[0x7001F2] = A;
@@ -8641,21 +8576,21 @@ public class SnesRom
 		Stack.Push(A);
 		A <<= 1;
 		X = A;
-		A = [0x03D3C6];
+		A = [0x03D3C6 + X];
 		A &= 0x00FF;
 		[0x700026] = A;
-		A = [0x03D3C7];
+		A = [0x03D3C7 + X];
 		A &= 0x00FF;
 		[0x700028] = A;
 		A = 0x0000;
 		[0x70002A] = A;
 		X = Stack.Pop();
-		A = [0x03D392];
+		A = [0x03D392 + X];
 		A &= 0x00FF;
 		X = A;
-		A = [0x000024];
+		A = [0x000024 + X];
 		[0x700022] = A;
-		A = [0x03C5B3];
+		A = [0x03C5B3 + X];
 		temp = A - 0xFFFF;
 		
 		if (Z == 0)
@@ -8700,7 +8635,7 @@ public class SnesRom
 		A = [0x16D9];
 		A <<= 1;
 		X = A;
-		A = [0x03D391];
+		A = [0x03D391 + X];
 		[0x700098] = A;
 		P |= 0x20;
 		A = [0x700098];
@@ -8771,7 +8706,7 @@ public class SnesRom
 		A = X;
 		A <<= 1;
 		X = A;
-		A = [0x03D391];
+		A = [0x03D391 + X];
 		A &= 0x00FF;
 		[0x700098] = A;
 		A = X;
@@ -8869,7 +8804,7 @@ public class SnesRom
 
 	public void 03CB40()
 	{
-		A = [0x03D46C];
+		A = [0x03D46C + X];
 		[0x2122] = A;
 		X++;
 		temp = X - 0x0200;
@@ -8894,9 +8829,9 @@ public class SnesRom
 		X = A;
 		P |= 0x20;
 		[0x2121] = 0;
-		A = [0x03D44C];
+		A = [0x03D44C + X];
 		[0x2122] = A;
-		A = [0x03D44D];
+		A = [0x03D44D + X];
 		[0x2122] = A;
 		P = Stack.Pop();
 		return;
@@ -9019,13 +8954,13 @@ public class SnesRom
 		A <<= 1;
 		A &= 0x00FF;
 		X = A;
-		A = [0x03D69D];
+		A = [0x03D69D + X];
 		X = A;
 	}
 
 	public void 03CC6B()
 	{
-		A = [0x03D69D];
+		A = [0x03D69D + X];
 		A &= 0x00FF;
 		
 		if (Z == 0)
@@ -9046,14 +8981,14 @@ public class SnesRom
 		if (Z == 1)
 			return this.03CC88();
 
-		A = [0x03D69E];
+		A = [0x03D69E + X];
 		X = A;
 		return this.03CC6B();
 	}
 
 	public void 03CC88()
 	{
-		A = [0x03D69E];
+		A = [0x03D69E + X];
 		X = A;
 		A = [0x16CE + X];
 		X = A;
@@ -9062,20 +8997,20 @@ public class SnesRom
 
 	public void 03CC93()
 	{
-		A = [0x03D69E];
+		A = [0x03D69E + X];
 		this.03CBB2();
 		Y = A;
-		A = [0x03D6A0];
+		A = [0x03D6A0 + X];
 		A &= 0x00FF;
 		[0x16D9] = A;
-		A = [0x03D6A1];
+		A = [0x03D6A1 + X];
 		[0x1FF7] = A;
-		A = [0x03D6A2];
+		A = [0x03D6A2 + X];
 		[0x1FF8] = A;
 		P |= 0x20;
-		A = [0x03D6A4];
+		A = [0x03D6A4 + X];
 		[0x7EF0C8] = A;
-		A = [0x03D6A5];
+		A = [0x03D6A5 + X];
 		[0x1FFD] = A;
 		P &= ~0x20;
 		A = X;
@@ -9099,7 +9034,7 @@ public class SnesRom
 		C = 0;
 		A += [0x03D69F + X] + C;
 		Y = A;
-		A = [0x03D69D];
+		A = [0x03D69D + X];
 		temp = A - 0xFFFF;
 		
 		if (Z == 1)
@@ -9294,7 +9229,7 @@ public class SnesRom
 
 	public void 03CE15()
 	{
-		A = [0x028FD6];
+		A = [0x028FD6 + X];
 		[0x7E4169 + X] = A;
 		X++;
 		X++;
@@ -9532,7 +9467,7 @@ public class SnesRom
 	public void 03D007()
 	{
 		Stack.Push(X);
-		A = [0x03D3C4];
+		A = [0x03D3C4 + X];
 		X = A;
 		A = Y;
 		this.03CF4A();
@@ -9751,7 +9686,7 @@ public class SnesRom
 
 		A <<= 1;
 		X = A;
-		A = [0x01FBD9];
+		A = [0x01FBD9 + X];
 		A++;
 		A++;
 		[0x7000A6] = A;
@@ -9805,7 +9740,7 @@ public class SnesRom
 		A = [0x16D9];
 		A &= 0x00FF;
 		X = A;
-		A = [0x03D3B3];
+		A = [0x03D3B3 + X];
 		A &= 0x00FF;
 		A--;
 		temp = A - 0xFFFF;
@@ -9815,7 +9750,7 @@ public class SnesRom
 
 		A <<= 1;
 		X = A;
-		A = [0x01FBD9];
+		A = [0x01FBD9 + X];
 		A++;
 		A++;
 		[0x7000A6] = A;
@@ -10200,7 +10135,7 @@ public class SnesRom
 		A++;
 		A <<= 1;
 		X = A;
-		A = [0x03DEE0];
+		A = [0x03DEE0 + X];
 		X = A;
 		this.03DE1D();
 		Y = [0x15AF];
@@ -10240,7 +10175,7 @@ public class SnesRom
 		A++;
 		A <<= 1;
 		X = A;
-		A = [0x03DEE0];
+		A = [0x03DEE0 + X];
 		X = A;
 		this.03DE1D();
 		A = [0x3A];
@@ -10266,7 +10201,7 @@ public class SnesRom
 	public void 03DE20()
 	{
 		Stack.Push(X);
-		A = [0x03DEB4];
+		A = [0x03DEB4 + X];
 		temp = A - 0xFFFF;
 		
 		if (Z == 0)
@@ -10278,15 +10213,15 @@ public class SnesRom
 	public void 03DE2D()
 	{
 		X = A;
-		A = [0x03DEB4];
+		A = [0x03DEB4 + X];
 		temp = A - 0xFFFE;
 		
 		if (Z == 0)
 			return this.03DE63();
 
-		A = [0x03DEB6];
+		A = [0x03DEB6 + X];
 		[0x1263 + Y] = A;
-		A = [0x03DEB8];
+		A = [0x03DEB8 + X];
 		[0x1267 + Y] = A;
 		A = [0x3A];
 		[0x1261 + Y] = A;
@@ -10308,11 +10243,11 @@ public class SnesRom
 	public void 03DE63()
 	{
 		[0x1263 + Y] = A;
-		A = [0x03DEB6];
+		A = [0x03DEB6 + X];
 		[0x1267 + Y] = A;
-		A = [0x03DEB8];
+		A = [0x03DEB8 + X];
 		[0x126B + Y] = A;
-		A = [0x03DEBA];
+		A = [0x03DEBA + X];
 		[0x126F + Y] = A;
 		A = [0x3A];
 		[0x1261 + Y] = A;
@@ -10714,21 +10649,21 @@ public class SnesRom
 		A += [0x1FCB] + C;
 		X = A;
 		Y = [0x15AF];
-		A = [0x03E292];
+		A = [0x03E292 + X];
 		[0x1261 + Y] = A;
-		A = [0x03E294];
+		A = [0x03E294 + X];
 		[0x1263 + Y] = A;
-		A = [0x03E296];
+		A = [0x03E296 + X];
 		[0x1265 + Y] = A;
-		A = [0x03E298];
+		A = [0x03E298 + X];
 		[0x1267 + Y] = A;
-		A = [0x03E29A];
+		A = [0x03E29A + X];
 		[0x1269 + Y] = A;
-		A = [0x03E29C];
+		A = [0x03E29C + X];
 		[0x126B + Y] = A;
-		A = [0x03E29E];
+		A = [0x03E29E + X];
 		[0x126D + Y] = A;
-		A = [0x03E2A0];
+		A = [0x03E2A0 + X];
 		[0x126F + Y] = A;
 		A = Y;
 		C = 0;
@@ -11075,7 +11010,7 @@ public class SnesRom
 		X++;
 		X++;
 		P &= ~0x20;
-		A = [0x03ED30];
+		A = [0x03ED30 + X];
 		
 		if (Z == 0)
 			return this.03E682();
@@ -11589,7 +11524,7 @@ public class SnesRom
 	public void 03E92E()
 	{
 		X = A;
-		A = [0x03EBC2];
+		A = [0x03EBC2 + X];
 		X = A;
 		P |= 0x20;
 		Y = 0x1299;
@@ -11614,7 +11549,7 @@ public class SnesRom
 	public void 03E950()
 	{
 		X = A;
-		A = [0x03EBBA];
+		A = [0x03EBBA + X];
 		X = A;
 		P |= 0x20;
 		Y = 0x1261;
@@ -11628,7 +11563,7 @@ public class SnesRom
 		A &= 0x0007;
 		A <<= 1;
 		X = A;
-		A = [0x03EBCA];
+		A = [0x03EBCA + X];
 		X = A;
 		P |= 0x20;
 		Y = 0x12D9;
@@ -11690,16 +11625,16 @@ public class SnesRom
 
 	public void 03E9A6()
 	{
-		A = [0x03E9A3];
+		A = [0x03E9A3 + X];
 		temp = A - 0xFF;
 		
 		if (Z == 1)
 			return this.03E9CD();
 
 		[0x0000 + Y] = A;
-		A = [0x03E9A4];
+		A = [0x03E9A4 + X];
 		[0x0001 + Y] = A;
-		A = [0x03E9A5];
+		A = [0x03E9A5 + X];
 		[0x0002 + Y] = A;
 		A = 0x30;
 		[0x0003 + Y] = A;
@@ -11908,7 +11843,7 @@ public class SnesRom
 		A &= 0x00FF;
 		X = A;
 		P |= 0x20;
-		A = [0x03EB6E];
+		A = [0x03EB6E + X];
 		this.03B7F9();
 	}
 
@@ -12027,132 +11962,6 @@ public class SnesRom
 		Y = X;
 		X = A;
 		return [(0xEDBF + X)]();
-		Y = X;
-		A -= [[0xBB] + Y] - !C;
-		A -= [0xF9C0 + Y] - !C;
-		A |= [0xFA13FA];
-		X = A;
-		X = Stack.Pop();
-		A ^= 0x91FB;
-		A -= [0x3E + X] - !C;
-		A -= [0x69 + X] - !C;
-		temp = C; C = E; E = temp;
-		return [(0xE8EE + X)]();
-		Cpu.PEA(0xF4F0); // ??
-	}
-
-	public void 03EDCD()
-	{
-		[(0xF5) + Y] = A;
-		Cpu.ROL(0x69F5 + X);
-		temp = C; C = E; E = temp;
-		return [(0xE8EE + X)]();
-		Cpu.PEA(0xF4F0); // ??
-	}
-
-	public void 03EDD1()
-	{
-		A += 0x7CFB + C;
-		[0xF4E8]++;
-		
-		if (Z == 1)
-			return this.03EDCD();
-
-	}
-
-	public void 03EDD9()
-	{
-		temp = C; C = E; E = temp;
-		Cpu.PEA(0xF4DA); // ??
-		I = 1;
-		Cpu.PEA(0xF49F); // ??
-		temp = Y - [0xF4];
-		
-		if (Z == 0)
-			return this.03EDD9();
-
-		Coprocessor.Execute(0xF9);
-		D = Stack.Pop();
-		Cpu.PEA(0xF457); // ??
-		temp = A - [0xCBF3 + X];
-		A -= [0x77 + Y] - !C;
-		A -= [0x93 + Y] - !C;
-		A -= [0xAF + Y] - !C;
-		A -= [0x7F + Y] - !C;
-		A -= [(0xA2)] - !C;
-		A -= [(0xC4)] - !C;
-		A -= [(0xEF)] - !C;
-		A -= [(0x15)] - !C;
-		A -= [0x3A + Y] - !C;
-		A -= [0x4F + Y] - !C;
-		A -= [(0x5B)] - !C;
-		A -= [(0xF3)] - !C;
-		A -= [(0x21) + Y] - !C;
-		A -= [(0xD1)] - !C;
-		A -= [(0xB1) + Y] - !C;
-		A -= [(0x67) + Y] - !C;
-		A -= [(0x73)] - !C;
-		A -= [(0x85)] - !C;
-		A -= [(0x9B) + Y] - !C;
-		A -= [(0x6F) + Y] - !C;
-		A -= [(0x79) + Y] - !C;
-		A -= [(0x35) + Y] - !C;
-		A -= [(0x1B) + Y] - !C;
-		A -= [(0x02) + Y] - !C;
-		A -= [(0xDD) + Y] - !C;
-		
-		if (Z == 1)
-			return this.03EE46();
-
-		A -= [0x06 + X] - !C;
-		A -= [0x0D + X] - !C;
-		
-		if (Z == 1)
-			return this.03EDD1();
-
-		A -= 0x5CEFDB - !C;
-		A -= 0x9CEF76 - !C;
-		A -= [0xCC + X] - !C;
-		[0x4E + X]++;
-		Cpu.SED();
-		[0xA3F5] = 0;
-		[0xEEC0]++;
-		A -= 0xEE - !C;
-		temp = A & [0x35EF]; [0x35EF] |= A;
-		A -= 0x52EE94 - !C;
-		A -= [(0x17) + Y] - !C;
-	}
-
-	public void 03EE46()
-	{
-		X = Stack.Pop();
-		return [(0x68EE + X)]();
-		[0xEE4D]++;
-		X = Y;
-		Stack.Push(X);
-		X = [0x16F7];
-		
-		if (Z == 0)
-			return this.03EE58();
-
-		X = Stack.Pop();
-		return this.03EE62();
-	}
-
-	public void 03EE58()
-	{
-		X = Stack.Pop();
-		Y = [0x16F7];
-		A = [0x8001 + X];
-		[0x0028 + Y] = A;
-	}
-
-	public void 03EE62()
-	{
-		X++;
-		X++;
-		X++;
-		return this.03EDAB();
 	}
 
 	public void 03F018()
@@ -12375,9 +12184,9 @@ public class SnesRom
 	{
 		P &= ~0x30;
 		X = [0x1741];
-		A = [0x03AC42];
+		A = [0x03AC42 + X];
 		[0x02] = A;
-		A = [0x03AC43];
+		A = [0x03AC43 + X];
 		[0x04] = A;
 		A |= [0x02];
 		
@@ -12548,13 +12357,13 @@ public class SnesRom
 		A <<= 1;
 		A <<= 1;
 		X = A;
-		A = [0x0680D5];
+		A = [0x0680D5 + X];
 		[0x7E3186] = A;
-		A = [0x0680D7];
+		A = [0x0680D7 + X];
 		[0x7E3188] = A;
-		A = [0x0680D9];
+		A = [0x0680D9 + X];
 		[0x7E318A] = A;
-		A = [0x0680DB];
+		A = [0x0680DB + X];
 		[0x7E318C] = A;
 		P |= 0x20;
 		Y = Stack.Pop();
@@ -12692,7 +12501,7 @@ public class SnesRom
 		A &= 0x0003;
 		X = A;
 		P |= 0x20;
-		A = [0x06BBD6];
+		A = [0x06BBD6 + X];
 		[0x702B24] = A;
 		X = Stack.Pop();
 		return this.06828E();
@@ -13353,7 +13162,7 @@ public class SnesRom
 		P &= ~0x20;
 		A = [0x14E4];
 		X = A;
-		A = [0x06BADA];
+		A = [0x06BADA + X];
 		X = Stack.Pop();
 		[0x14E8] = A;
 		P |= 0x20;
@@ -13366,7 +13175,7 @@ public class SnesRom
 		P &= ~0x20;
 		A = [0x14E4];
 		X = A;
-		A = [0x06BADA];
+		A = [0x06BADA + X];
 		X = Stack.Pop();
 		temp = A - 0x8000;
 		Cpu.ROR();
@@ -13709,7 +13518,7 @@ public class SnesRom
 
 	public void 06BCE5()
 	{
-		A = [0x02F8BF];
+		A = [0x02F8BF + X];
 		[0x1789 + Y] = A;
 		Y++;
 		Y++;
@@ -14169,7 +13978,7 @@ public class SnesRom
 		temp = C; C = E; E = temp;
 		P &= ~0x30;
 		A = 0x0000;
-		Cpu.TCD();
+		D = A;
 		X = 0x02FF;
 		S = X;
 		P |= 0x30;
@@ -14199,7 +14008,7 @@ public class SnesRom
 		C = 0;
 		temp = C; C = E; E = temp;
 		A = 0x0000;
-		Cpu.TCD();
+		D = A;
 		X = 0x02FF;
 		S = X;
 		P |= 0x30;
@@ -15354,7 +15163,7 @@ public class SnesRom
 	public void 1FD29F()
 	{
 		P &= ~0x20;
-		A = [0x7E1CD6];
+		A = [0x7E1CD6 + X];
 		
 		if (Z == 1)
 			return this.1FD2AF();
@@ -15371,10 +15180,10 @@ public class SnesRom
 	public void 1FD2AF()
 	{
 		P |= 0x20;
-		A = [0x7E1CD2];
+		A = [0x7E1CD2 + X];
 		[0x1244] = A;
 		P &= ~0x20;
-		A = [0x7E1CD0];
+		A = [0x7E1CD0 + X];
 		
 		if (Z == 0)
 			return this.1FD30F();
@@ -15393,10 +15202,10 @@ public class SnesRom
 		if (Z == 1)
 			return this.1FD2E7();
 
-		A = [0x7E1CD5];
+		A = [0x7E1CD5 + X];
 		[0x1244] = A;
 		P &= ~0x20;
-		A = [0x7E1CD3];
+		A = [0x7E1CD3 + X];
 		
 		if (Z == 0)
 			return this.1FD30F();
@@ -15423,10 +15232,10 @@ public class SnesRom
 		A = [0x1E + X];
 		A &= 0xFD;
 		[0x1E + X] = A;
-		A = [0x7E1CD8];
+		A = [0x7E1CD8 + X];
 		[0x1244] = A;
 		P &= ~0x20;
-		A = [0x7E1CD6];
+		A = [0x7E1CD6 + X];
 		
 		if (Z == 0)
 			return this.1FD30F();
@@ -16337,12 +16146,12 @@ public class SnesRom
 		[0x1F69] = X;
 		X = A;
 		P |= 0x20;
-		A = [0x1FEC20];
+		A = [0x1FEC20 + X];
 		[0x1FF4] = A;
 		P &= ~0x20;
-		A = [0x1FEC1E];
+		A = [0x1FEC1E + X];
 		Stack.Push(A);
-		A = [0x1FEC21];
+		A = [0x1FEC21 + X];
 		[0x1F1B] = A;
 		X++;
 		X++;
@@ -17024,7 +16833,7 @@ public class SnesRom
 	{
 		A = [0x14C5];
 		[0x1261 + Y] = A;
-		A = [0x1FFC64];
+		A = [0x1FFC64 + X];
 		C = 0;
 		A += 0x3080 + C;
 		[0x1263 + Y] = A;
@@ -17188,7 +16997,7 @@ public class SnesRom
 
 	public void 1FFE03()
 	{
-		A = [0x1FFE1E];
+		A = [0x1FFE1E + X];
 		[0x000101 + X] = A;
 		X--;
 		
@@ -17200,7 +17009,7 @@ public class SnesRom
 
 	public void 1FFE11()
 	{
-		A = [0x028000];
+		A = [0x028000 + X];
 		[0x7E3193 + X] = A;
 		X--;
 		

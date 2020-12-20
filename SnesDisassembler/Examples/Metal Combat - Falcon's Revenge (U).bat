@@ -1,1 +1,1 @@
-..\bin\debug\netcoreapp3.1\SnesDisassembler.exe "Metal Combat - Falcon's Revenge (U).smc" 8c3b > "Metal Combat - Falcon's Revenge (U).txt"
+..\bin\debug\netcoreapp3.1\SnesDisassembler.exe "Metal Combat - Falcon's Revenge (U).smc" 809f0c > "Metal Combat - Falcon's Revenge (U).txt"
